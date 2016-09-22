@@ -31,48 +31,47 @@ Object.extend({
 
 	map: function(object, fn, bind){
 		var results = {};
-		var keys = Object.keys(object);
-		for (var i = 0; i < keys.length; i++){
-			var key = keys[i];
-			results[key] = fn.call(bind, object[key], key, object);
+		for (var key in object){
+			if (hasOwnProperty.call(object, key)) results[key] = fn.call(bind, object[key], key, object);
 		}
 		return results;
 	},
 
 	filter: function(object, fn, bind){
 		var results = {};
-		var keys = Object.keys(object);
-		for (var i = 0; i < keys.length; i++){
-			var key = keys[i], value = object[key];
-			if (fn.call(bind, value, key, object)) results[key] = value;
+		for (var key in object){
+			var value = object[key];
+			if (hasOwnProperty.call(object, key) && fn.call(bind, value, key, object)) results[key] = value;
 		}
 		return results;
 	},
 
 	every: function(object, fn, bind){
-		var keys = Object.keys(object);
-		for (var i = 0; i < keys.length; i++){
-			var key = keys[i];
-			if (!fn.call(bind, object[key], key)) return false;
+		for (var key in object){
+			if (hasOwnProperty.call(object, key) && !fn.call(bind, object[key], key)) return false;
 		}
 		return true;
 	},
 
 	some: function(object, fn, bind){
-		var keys = Object.keys(object);
-		for (var i = 0; i < keys.length; i++){
-			var key = keys[i];
-			if (fn.call(bind, object[key], key)) return true;
+		for (var key in object){
+			if (hasOwnProperty.call(object, key) && fn.call(bind, object[key], key)) return true;
 		}
 		return false;
 	},
 
+	keys: function(object){
+		var keys = [];
+		for (var key in object){
+			if (hasOwnProperty.call(object, key)) keys.push(key);
+		}
+		return keys;
+	},
+
 	values: function(object){
 		var values = [];
-		var keys = Object.keys(object);
-		for (var i = 0; i < keys.length; i++){
-			var k = keys[i];
-			values.push(object[k]);
+		for (var key in object){
+			if (hasOwnProperty.call(object, key)) values.push(object[key]);
 		}
 		return values;
 	},
@@ -82,10 +81,8 @@ Object.extend({
 	},
 
 	keyOf: function(object, value){
-		var keys = Object.keys(object);
-		for (var i = 0; i < keys.length; i++){
-			var key = keys[i];
-			if (object[key] === value) return key;
+		for (var key in object){
+			if (hasOwnProperty.call(object, key) && object[key] === value) return key;
 		}
 		return null;
 	},
