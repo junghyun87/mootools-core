@@ -6,10 +6,8 @@ node_js:
 env:
   matrix:
     - BROWSER='ie8'             BUILD='default'
-    - BROWSER='chrome_linux'    BUILD='default'
 
     - BROWSER='ie8'             BUILD='nocompat'
-    - BROWSER='chrome_linux'    BUILD='nocompat'
 
   global:
     - secure: myFP8vndNuVGr2b+WtP4efJ2fJL7By7PUi2yxgbUlaqK82qgkayrp7zu6G7YKYBtWRTaRvwybX4XVZn9zCvFm2xTB8xSeWy3bB63JZcYPGzLpwusgJ69Kr+K5dAn/EzIj23pIjqVic9XmEEFK1FqCLp8V2Ty4kl3RG7onfwALUo=
